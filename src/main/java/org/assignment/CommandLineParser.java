@@ -2,7 +2,12 @@ package org.assignment;
 
 import org.assignment.command.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommandLineParser {
+
+    private final List<BankAccount> bankAccounts = new ArrayList<>();
 
     String process(String input) {
         String[] inputStrings = input.split(" ");
@@ -20,6 +25,7 @@ public class CommandLineParser {
 
     private String createAccount(String accountName) {
         BankAccount account = new BankAccount(accountName, 0.0d);
+        bankAccounts.add(account);
         return String.format("Hello, %s!", account.getName());
     }
 }
