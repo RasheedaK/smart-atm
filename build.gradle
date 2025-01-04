@@ -8,7 +8,7 @@ java {
     }
 }
 
-group 'org.example'
+group 'org.assignment'
 version '1.0-SNAPSHOT'
 
 repositories {

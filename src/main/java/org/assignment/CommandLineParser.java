@@ -1,4 +1,4 @@
-package org.example;
+package org.assignment;
 
 public class CommandLineParser {
 
