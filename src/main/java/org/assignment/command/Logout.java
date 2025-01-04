@@ -1,4 +1,4 @@
-package org.assignment;
+package org.assignment.command;
 
 public class Logout implements ATMCommand {
     @Override

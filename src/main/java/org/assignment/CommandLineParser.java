@@ -1,5 +1,7 @@
 package org.assignment;
 
+import org.assignment.command.*;
+
 public class CommandLineParser {
 
     String process(String input) {
