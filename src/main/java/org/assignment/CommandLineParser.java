@@ -6,7 +6,7 @@ public class CommandLineParser {
         String[] inputStrings = input.split(" ");
         String command = inputStrings[0];
         return switch (command) {
-            case "login" -> "login";
+            case "login" -> new Login().execute();
             case "deposit" -> "deposit";
             case "withdraw" -> "withdraw";
             case "transfer" -> "transfer";
