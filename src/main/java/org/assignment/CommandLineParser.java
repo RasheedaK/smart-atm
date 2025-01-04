@@ -8,6 +8,7 @@ import java.util.List;
 public class CommandLineParser {
 
     private final List<BankAccount> bankAccounts = new ArrayList<>();
+    private BankAccount currentLoggedInAccount;
 
     String process(String input) {
         String[] inputStrings = input.split(" ");
@@ -25,13 +26,14 @@ public class CommandLineParser {
 
     private String deposit(String[] inputStrings) {
         Double amount = Double.valueOf(inputStrings[1]);
-        new Deposit(bankAccounts.get(0), amount).execute();
-        return String.format("Your balance is $%s", bankAccounts.get(0).getBalance());
+        new Deposit(currentLoggedInAccount, amount).execute();
+        return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
     }
 
     private String createAccount(String accountName) {
         BankAccount account = new BankAccount(accountName, 0.0d);
-        bankAccounts.add(account);
+        this.bankAccounts.add(account);
+        currentLoggedInAccount = account;
         return String.format("Hello, %s!", account.getName());
     }
 }
