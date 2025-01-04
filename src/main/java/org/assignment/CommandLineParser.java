@@ -7,10 +7,10 @@ public class CommandLineParser {
         String command = inputStrings[0];
         return switch (command) {
             case "login" -> new Login().execute();
-            case "deposit" -> "deposit";
-            case "withdraw" -> "withdraw";
-            case "transfer" -> "transfer";
-            case "logout" -> "logout";
+            case "deposit" -> new Deposit().execute();
+            case "withdraw" -> new Withdraw().execute();
+            case "transfer" -> new Transfer().execute();
+            case "logout" -> new Logout().execute();
             default -> "Invalid command";
         };
     }
