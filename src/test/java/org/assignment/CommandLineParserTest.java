@@ -17,9 +17,10 @@ class CommandLineParserTest {
     @Test
     void shouldProcessDepositCommand() {
         CommandLineParser commandLineParser = new CommandLineParser();
+        commandLineParser.process("login Alice");
 
         String command = "deposit 100";
-        assertEquals("deposit", commandLineParser.process(command));
+        assertEquals("Your balance is $100.0", commandLineParser.process(command));
     }
 
     @Test
