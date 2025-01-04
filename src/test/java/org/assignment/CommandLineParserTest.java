@@ -11,7 +11,7 @@ class CommandLineParserTest {
         CommandLineParser commandLineParser = new CommandLineParser();
 
         String command = "login Alice";
-        assertEquals("login", commandLineParser.process(command));
+        assertEquals("Hello, Alice!", commandLineParser.process(command));
     }
 
     @Test

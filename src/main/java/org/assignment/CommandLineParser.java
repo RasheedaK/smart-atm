@@ -8,7 +8,10 @@ public class CommandLineParser {
         String[] inputStrings = input.split(" ");
         String command = inputStrings[0];
         return switch (command) {
-            case "login" -> new Login().execute();
+            case "login" -> {
+                BankAccount account = new BankAccount(inputStrings[1], 0.0d);
+                yield String.format("Hello, %s!", account.getName());
+            }
             case "deposit" -> new Deposit().execute();
             case "withdraw" -> new Withdraw().execute();
             case "transfer" -> new Transfer().execute();
