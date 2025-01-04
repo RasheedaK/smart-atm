@@ -5,7 +5,7 @@ import org.assignment.command.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandLineParser {
+public class Bank {
 
     private final List<BankAccount> bankAccounts = new ArrayList<>();
     private BankAccount currentLoggedInAccount;
