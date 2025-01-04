@@ -3,7 +3,7 @@ package org.assignment;
 public class BankAccount {
 
     private final String name;
-    private final double balance;
+    private double balance;
 
     public BankAccount(String name, double balance) {
         this.name = name;
@@ -16,5 +16,9 @@ public class BankAccount {
 
     public double getBalance() {
         return balance;
+    }
+
+    public void deposit(Double amount) {
+        this.balance += amount;
     }
 }
