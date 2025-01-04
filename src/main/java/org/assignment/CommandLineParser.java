@@ -15,7 +15,7 @@ public class CommandLineParser {
             case "deposit" -> new Deposit().execute();
             case "withdraw" -> new Withdraw().execute();
             case "transfer" -> new Transfer().execute();
-            case "logout" -> new Logout().execute();
+            case "logout" -> "logout";
             default -> "Invalid command";
         };
     }
