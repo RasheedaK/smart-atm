@@ -6,10 +6,7 @@ import org.assignment.command.Transfer;
 import org.assignment.command.Withdraw;
 import org.assignment.model.BankAccount;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class ATM {
 
@@ -19,7 +16,6 @@ public class ATM {
     public static final String LOGIN = "login";
     public static final String LOGOUT = "logout";
 
-    private final List<BankAccount> bankAccounts = new ArrayList<>();
     private BankAccount currentLoggedInAccount;
     private final Bank bank;
 
@@ -54,7 +50,7 @@ public class ATM {
             case TRANSFER -> {
                 String toAccountName = inputStrings[1];
                 Double amount = Double.valueOf(inputStrings[2]);
-                yield new Transfer(currentLoggedInAccount, findAccountByName(toAccountName), amount);
+                yield new Transfer(currentLoggedInAccount, bank.findAccountByName(toAccountName), amount);
             }
             default -> null;
         };
@@ -66,10 +62,10 @@ public class ATM {
     }
 
     private String login(String accountName) {
-        if (Objects.isNull(findAccountByName(accountName))) {
-            currentLoggedInAccount = createAccount(accountName);
+        if (Objects.isNull(bank.findAccountByName(accountName))) {
+            currentLoggedInAccount = bank.createAccount(accountName);
         } else {
-            currentLoggedInAccount = findAccountByName(accountName);
+            currentLoggedInAccount = bank.findAccountByName(accountName);
         }
         return String.format("Hello, %s!", currentLoggedInAccount.getName());
     }
@@ -78,28 +74,5 @@ public class ATM {
         String loggedInAccountName = currentLoggedInAccount.getName();
         currentLoggedInAccount = null;
         return String.format("Goodbye, %s!", loggedInAccountName);
-    }
-
-    private BankAccount createAccount(String accountName) {
-        BankAccount newAccount = new BankAccount(accountName, 0.0d);
-        this.bankAccounts.add(newAccount);
-        return newAccount;
-    }
-
-    public BankAccount findAccountByName(String accountName) {
-        Optional<BankAccount> bankAccountOptional = this.bankAccounts
-                .stream()
-                .filter(bankAccount -> bankAccount.getName().equals(accountName))
-                .findFirst();
-
-        return bankAccountOptional.orElse(null);
-    }
-
-    // This method is for test
-    public long countAccountsByName(String accountName) {
-        return this.bankAccounts
-                .stream()
-                .filter(bankAccount -> bankAccount.getName().equals(accountName))
-                .count();
     }
 }

@@ -9,10 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ATMTest {
 
     static ATM atm;
+    static Bank bank;
 
     @BeforeAll
     static void setUp() {
-        atm = new ATM(new Bank());
+        bank = new Bank();
+        atm = new ATM(bank);
     }
 
     @Test
@@ -29,7 +31,7 @@ class ATMTest {
         String command2 = "login Alice";
         atm.process(command2);
 
-        assertEquals(1, atm.countAccountsByName("Alice"));
+        assertEquals(1, bank.countAccountsByName("Alice"));
     }
 
     @Test
@@ -64,7 +66,7 @@ class ATMTest {
 
         atm.process("transfer Bob 100");
 
-        BankAccount bobAccount = atm.findAccountByName("Bob");
+        BankAccount bobAccount = bank.findAccountByName("Bob");
         assertEquals(150.0d, bobAccount.getBalance());
     }
 
