@@ -38,7 +38,7 @@ public class Bank {
 
     private String createAccount(String accountName) {
         BankAccount accountToCreate = new BankAccount(accountName, 0.0d);
-        if (!bankAccounts.contains(accountToCreate)) {
+        if (!this.bankAccounts.contains(accountToCreate)) {
             currentLoggedInAccount = accountToCreate;
             this.bankAccounts.add(accountToCreate);
         }
