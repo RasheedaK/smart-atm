@@ -4,7 +4,7 @@ import org.assignment.model.BankAccount;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ATMClientTest {
 
@@ -21,8 +21,9 @@ class ATMClientTest {
 
     @Test
     void shouldProcessLoginCommand() {
-        String command = "login Alice";
-        assertEquals("Hello, Alice!\nYour balance is $0.0", atmClient.process(command));
+        atmClient.process("login Alice");
+
+        assertNotNull(bank.findAccountByName("Alice"));
     }
 
     @Test
@@ -39,9 +40,11 @@ class ATMClientTest {
     @Test
     void shouldProcessDepositCommand() {
         atmClient.process("login Alice");
+        atmClient.process("deposit 100");
 
-        String command = "deposit 100";
-        assertEquals("Your balance is $100.0", atmClient.process(command));
+        BankAccount account = bank.findAccountByName("Alice");
+
+        assertEquals(100.0d, account.getBalance());
 
         atmClient.process("withdraw 100");
     }
@@ -50,9 +53,11 @@ class ATMClientTest {
     void shouldProcessWithdrawCommand() {
         atmClient.process("login Alice");
         atmClient.process("deposit 100");
+        atmClient.process("withdraw 50");
 
-        String command = "withdraw 50";
-        assertEquals("Your balance is $50.0", atmClient.process(command));
+        BankAccount account = bank.findAccountByName("Alice");
+
+        assertEquals(50.0d, account.getBalance());
 
         atmClient.process("withdraw 50");
     }
@@ -76,6 +81,8 @@ class ATMClientTest {
     void shouldProcessLogoutCommand() {
         atmClient.process("login Alice");
 
-        assertEquals("Goodbye, Alice!", atmClient.process("logout"));
+        atmClient.process("logout");
+
+        assertNull(atmClient.getCurrentLoggedInAccount());
     }
 }

@@ -28,10 +28,12 @@ public class BankAccount {
 
     public void deposit(Double amount) {
         this.balance += amount;
+        System.out.printf("Your balance is $%s%n", this.balance);
     }
 
     public void withdraw(Double amount) {
         this.balance -= amount;
+        System.out.printf("Your balance is $%s%n", this.balance);
     }
 
     public void transfer(BankAccount toAccount, Double amount) {

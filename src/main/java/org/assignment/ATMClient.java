@@ -25,35 +25,39 @@ public class ATMClient {
         this.bank = bank;
     }
 
-    String process(String input) {
+    void process(String input) {
         String[] inputStrings = input.split(" ");
         String command = inputStrings[0];
 
-        return switch (command) {
+        switch (command) {
             case LOGIN -> login(inputStrings[1]);
             case DEPOSIT, WITHDRAW, TRANSFER -> useATM(inputStrings);
             case LOGOUT -> logout();
-            default -> "Invalid command";
-        };
+            default -> System.out.printf("Invalid command%n");
+        }
     }
 
-    private String login(String accountName) {
+    public BankAccount getCurrentLoggedInAccount() {
+        return currentLoggedInAccount;
+    }
+
+    private void login(String accountName) {
         if (Objects.isNull(bank.findAccountByName(accountName))) {
             currentLoggedInAccount = bank.createAccount(accountName);
         } else {
             currentLoggedInAccount = bank.findAccountByName(accountName);
         }
-        return String.format("Hello, %s!%nYour balance is $%s",
+        System.out.printf("Hello, %s!%nYour balance is $%s%n",
                 currentLoggedInAccount.getName(), currentLoggedInAccount.getBalance());
     }
 
-    private String logout() {
+    private void logout() {
         String loggedInAccountName = currentLoggedInAccount.getName();
         currentLoggedInAccount = null;
-        return String.format("Goodbye, %s!", loggedInAccountName);
+        System.out.printf("Goodbye, %s!%n", loggedInAccountName);
     }
 
-    private String useATM(String[] inputStrings) {
+    private void useATM(String[] inputStrings) {
         String inputCommand = inputStrings[0];
 
         Command commandObject = switch (inputCommand) {
@@ -75,7 +79,5 @@ public class ATMClient {
 
         atm.setCurrentCommand(commandObject);
         atm.execute();
-
-        return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
     }
 }

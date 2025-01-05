@@ -24,7 +24,7 @@ public class Main {
                 break;  // Exit the loop and end the program
             }
 
-            System.out.println(atmClient.process(input));
+            atmClient.process(input);
         }
 
         scanner.close();
