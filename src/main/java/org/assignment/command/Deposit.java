@@ -15,5 +15,6 @@ public class Deposit implements Command {
     @Override
     public void execute() {
         this.bankAccount.deposit(amount);
+        System.out.printf("Your balance is $%s%n", this.bankAccount.getBalance());
     }
 }
