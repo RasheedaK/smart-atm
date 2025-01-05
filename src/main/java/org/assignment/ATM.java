@@ -12,6 +12,12 @@ import java.util.Optional;
 
 public class ATM {
 
+    public static final String DEPOSIT = "deposit";
+    public static final String WITHDRAW = "withdraw";
+    public static final String TRANSFER = "transfer";
+    public static final String LOGIN = "login";
+    public static final String LOGOUT = "logout";
+
     private final List<BankAccount> bankAccounts = new ArrayList<>();
     private BankAccount currentLoggedInAccount;
     private final Bank bank;
@@ -25,9 +31,9 @@ public class ATM {
         String command = inputStrings[0];
 
         return switch (command) {
-            case "login" -> login(inputStrings[1]);
-            case "deposit", "withdraw", "transfer" -> useBankToExecute(inputStrings);
-            case "logout" -> logout();
+            case LOGIN -> login(inputStrings[1]);
+            case DEPOSIT, WITHDRAW, TRANSFER -> useBankToExecute(inputStrings);
+            case LOGOUT -> logout();
             default -> "Invalid command";
         };
     }
@@ -36,15 +42,15 @@ public class ATM {
         String inputCommand = inputStrings[0];
 
         Command commandObject = switch (inputCommand) {
-            case "deposit" -> {
+            case DEPOSIT -> {
                 Double amount = Double.valueOf(inputStrings[1]);
                 yield new Deposit(currentLoggedInAccount, amount);
             }
-            case "withdraw" -> {
+            case WITHDRAW -> {
                 Double amount = Double.valueOf(inputStrings[1]);
                 yield new Withdraw(currentLoggedInAccount, amount);
             }
-            case "transfer" -> {
+            case TRANSFER -> {
                 String toAccountName = inputStrings[1];
                 Double amount = Double.valueOf(inputStrings[2]);
                 yield new Transfer(currentLoggedInAccount, findAccountByName(toAccountName), amount);
