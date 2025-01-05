@@ -1,6 +1,8 @@
 package org.assignment;
 
-import org.assignment.command.*;
+import org.assignment.command.Deposit;
+import org.assignment.command.Transfer;
+import org.assignment.command.Withdraw;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,10 @@ public class Bank {
             case "login" -> createAccount(inputStrings[1]);
             case "deposit" -> deposit(inputStrings);
             case "withdraw" -> withdraw(inputStrings);
-            case "transfer" -> new Transfer().execute();
+            case "transfer" -> {
+                new Transfer().execute();
+                yield "transfer";
+            }
             case "logout" -> "logout";
             default -> "Invalid command";
         };

@@ -13,8 +13,7 @@ public class Withdraw implements ATMCommand {
     }
 
     @Override
-    public String execute() {
+    public void execute() {
         this.bankAccount.withdraw(amount);
-        return "withdraw";
     }
 }

@@ -13,8 +13,7 @@ public class Deposit implements ATMCommand {
     }
 
     @Override
-    public String execute() {
+    public void execute() {
         this.bankAccount.deposit(amount);
-        return "";
     }
 }
