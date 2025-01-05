@@ -44,6 +44,15 @@ public class BankAccount {
 
     public void login() {
         System.out.printf("Hello, %s!%nYour balance is $%s%n", this.name, this.balance);
+
+        if (!this.owingMappings.isEmpty()) {
+            for (Map.Entry<BankAccount, OweRecord> entry : owingMappings.entrySet()) {
+                System.out.printf("Owed $%s %s %s%n",
+                        entry.getValue().amount(),
+                        entry.getValue().type().name().toLowerCase(),
+                        entry.getKey().getName());
+            }
+        }
     }
 
     public void deposit(Double amount) {
