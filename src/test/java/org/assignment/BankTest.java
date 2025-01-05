@@ -15,6 +15,19 @@ class BankTest {
     }
 
     @Test
+    void shouldNotCreateAccountIfItExistsAlready() {
+        Bank bank = new Bank();
+
+        String command1 = "login Alice";
+        bank.process(command1);
+
+        String command2 = "login Alice";
+        bank.process(command2);
+
+        assertEquals(1, bank.countAccountsByName("Alice"));
+    }
+
+    @Test
     void shouldProcessDepositCommand() {
         Bank bank = new Bank();
         bank.process("login Alice");

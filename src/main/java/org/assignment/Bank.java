@@ -31,9 +31,20 @@ public class Bank {
     }
 
     private String createAccount(String accountName) {
-        BankAccount account = new BankAccount(accountName, 0.0d);
-        this.bankAccounts.add(account);
-        currentLoggedInAccount = account;
-        return String.format("Hello, %s!", account.getName());
+        BankAccount accountToCreate = new BankAccount(accountName, 0.0d);
+        if (!bankAccounts.contains(accountToCreate)) {
+            currentLoggedInAccount = accountToCreate;
+            this.bankAccounts.add(accountToCreate);
+        }
+
+        return String.format("Hello, %s!", currentLoggedInAccount.getName());
+    }
+
+    // This method is for test
+    public long countAccountsByName(String accountName) {
+        return this.bankAccounts
+                .stream()
+                .filter(bankAccount -> bankAccount.getName().equals(accountName))
+                .count();
     }
 }
