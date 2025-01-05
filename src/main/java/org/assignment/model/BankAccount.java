@@ -2,6 +2,7 @@ package org.assignment.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.assignment.model.OweRecordType.FROM;
 import static org.assignment.model.OweRecordType.TO;
@@ -10,7 +11,7 @@ public class BankAccount {
 
     private final String name;
     private double balance;
-    private final Map<String, OweRecord> owingMappings;
+    private final Map<BankAccount, OweRecord> owingMappings;
 
     public BankAccount(String name, double balance) {
         this.name = name;
@@ -24,6 +25,21 @@ public class BankAccount {
 
     public double getBalance() {
         return balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BankAccount account = (BankAccount) o;
+
+        return Objects.equals(name, account.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
     }
 
     public void deposit(Double amount) {
@@ -44,16 +60,16 @@ public class BankAccount {
             OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
             OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
 
-            this.addOwe(toAccount.getName(), toOweRecord);
-            toAccount.addOwe(this.name, fromOweRecord);
+            this.addOwe(toAccount, toOweRecord);
+            toAccount.addOwe(this, fromOweRecord);
         }
     }
 
-    private void addOwe(String accountName, OweRecord oweRecord) {
-        this.owingMappings.put(accountName, oweRecord);
+    private void addOwe(BankAccount bankAccount, OweRecord oweRecord) {
+        this.owingMappings.put(bankAccount, oweRecord);
     }
 
-    public Map<String, OweRecord> getOwingMappings() {
+    public Map<BankAccount, OweRecord> getOwingMappings() {
         return owingMappings;
     }
 }

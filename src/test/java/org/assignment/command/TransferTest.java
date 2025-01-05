@@ -20,10 +20,10 @@ class TransferTest {
 
         transfer.execute();
 
-        Map<String, OweRecord> fromAccountOwingMappings = fromAccount.getOwingMappings();
-        Map<String, OweRecord> toAccountOwingMappings = toAccount.getOwingMappings();
+        Map<BankAccount, OweRecord> fromAccountOwingMappings = fromAccount.getOwingMappings();
+        Map<BankAccount, OweRecord> toAccountOwingMappings = toAccount.getOwingMappings();
 
-        assertTrue(fromAccountOwingMappings.containsKey(toAccount.getName()));
-        assertTrue(toAccountOwingMappings.containsKey(fromAccount.getName()));
+        assertTrue(fromAccountOwingMappings.containsKey(toAccount));
+        assertTrue(toAccountOwingMappings.containsKey(fromAccount));
     }
 }
