@@ -1,6 +1,6 @@
 package org.assignment;
 
-import org.assignment.command.ATMCommand;
+import org.assignment.command.Command;
 import org.assignment.command.Deposit;
 import org.assignment.command.Transfer;
 import org.assignment.command.Withdraw;
@@ -35,7 +35,7 @@ public class ATM {
     private String useBankToExecute(String[] inputStrings) {
         String inputCommand = inputStrings[0];
 
-        ATMCommand commandObject = switch (inputCommand) {
+        Command commandObject = switch (inputCommand) {
             case "deposit" -> {
                 Double amount = Double.valueOf(inputStrings[1]);
                 yield new Deposit(currentLoggedInAccount, amount);

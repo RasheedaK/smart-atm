@@ -1,5 +1,5 @@
 package org.assignment.command;
 
-public interface ATMCommand {
+public interface Command {
     void execute();
 }

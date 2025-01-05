@@ -6,7 +6,7 @@ import org.assignment.OweRecord;
 import static org.assignment.OweRecordType.FROM;
 import static org.assignment.OweRecordType.TO;
 
-public class Transfer implements ATMCommand {
+public class Transfer implements Command {
 
     private final BankAccount fromAccount;
     private final BankAccount toAccount;

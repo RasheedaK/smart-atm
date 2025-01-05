@@ -2,7 +2,7 @@ package org.assignment.command;
 
 import org.assignment.BankAccount;
 
-public class Withdraw implements ATMCommand {
+public class Withdraw implements Command {
 
     private final BankAccount bankAccount;
     private final Double amount;

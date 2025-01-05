@@ -1,12 +1,12 @@
 package org.assignment;
 
-import org.assignment.command.ATMCommand;
+import org.assignment.command.Command;
 
 public class Bank {
 
-    private ATMCommand currentCommand;
+    private Command currentCommand;
 
-    public void setCurrentCommand(ATMCommand currentCommand) {
+    public void setCurrentCommand(Command currentCommand) {
         this.currentCommand = currentCommand;
     }
 
