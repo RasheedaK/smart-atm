@@ -1,7 +1,6 @@
 package org.assignment;
 
 import org.assignment.command.Deposit;
-import org.assignment.command.Transfer;
 import org.assignment.command.Withdraw;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class Bank {
             case "deposit" -> deposit(inputStrings);
             case "withdraw" -> withdraw(inputStrings);
             case "transfer" -> {
-                new Transfer().execute();
                 yield "transfer";
             }
             case "logout" -> "logout";

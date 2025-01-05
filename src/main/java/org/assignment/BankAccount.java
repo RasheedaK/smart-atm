@@ -1,15 +1,19 @@
 package org.assignment;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class BankAccount {
 
     private final String name;
     private double balance;
+    private final Map<String, OweRecord> owingMappings;
 
     public BankAccount(String name, double balance) {
         this.name = name;
         this.balance = balance;
+        this.owingMappings = new HashMap<>();
     }
 
     public String getName() {
@@ -41,5 +45,13 @@ public class BankAccount {
 
     public void withdraw(Double amount) {
         this.balance -= amount;
+    }
+
+    public void addOwe(String accountName, OweRecord oweRecord) {
+        this.owingMappings.put(accountName, oweRecord);
+    }
+
+    public Map<String, OweRecord> getOwingMappings() {
+        return owingMappings;
     }
 }
