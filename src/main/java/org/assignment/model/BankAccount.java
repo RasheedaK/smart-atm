@@ -67,6 +67,7 @@ public class BankAccount {
 
                 if (newOweBalance > 0) {
                     owingMappings.put(entry.getKey(), new OweRecord(TO, newOweBalance));
+                    entry.getKey().addOwe(this, new OweRecord(FROM, newOweBalance));
                 }
                 this.transfer(entry.getKey(), amountToTransfer);
             }
