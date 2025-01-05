@@ -77,6 +77,9 @@ public class BankAccount {
                 if (newOweBalance > 0) {
                     owingMappings.put(entry.getKey(), new OweRecord(TO, newOweBalance));
                     entry.getKey().addOwe(this, new OweRecord(FROM, newOweBalance));
+                } else {
+                    owingMappings.remove(entry.getKey());
+                    entry.getKey().owingMappings.remove(this);
                 }
                 this.transfer(entry.getKey(), amountToTransfer);
             }
@@ -93,24 +96,47 @@ public class BankAccount {
     }
 
     public void transfer(BankAccount toAccount, Double amount) {
-        if (this.balance >= amount) {
-            this.balance -= amount;
-            toAccount.balance += amount;
+        boolean isTransferNeeded = true;
+        if (!this.owingMappings.isEmpty()) {
+            OweRecord oweRecordForToAccount = owingMappings.get(toAccount);
+            if (Objects.nonNull(oweRecordForToAccount) && FROM.equals(oweRecordForToAccount.type())) {
+                if (oweRecordForToAccount.amount() >= amount) {
+                    Double newOweBalance = oweRecordForToAccount.amount() - amount;
 
-            System.out.printf("Transferred $%s to %s%n", amount, toAccount.name);
-        } else {
-            toAccount.balance += this.balance;
-            Double remainingAmount = amount - this.balance;
-            OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
-            OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
-            this.addOwe(toAccount, toOweRecord);
-            toAccount.addOwe(this, fromOweRecord);
+                    if (newOweBalance > 0) {
+                        owingMappings.put(toAccount, new OweRecord(FROM, newOweBalance));
+                        toAccount.addOwe(this, new OweRecord(TO, newOweBalance));
+                        isTransferNeeded = false;
+                    } else {
+                        owingMappings.remove(toAccount);
+                        toAccount.owingMappings.remove(this);
+                        isTransferNeeded = false;
+                    }
 
-            System.out.printf("Transferred $%s to %s%n", this.balance, toAccount.name);
-
-            this.balance = 0.0d;
+                } else {
+                    amount = amount - oweRecordForToAccount.amount();
+                }
+            }
         }
+        if (isTransferNeeded) {
+            if (this.balance >= amount) {
+                this.balance -= amount;
+                toAccount.balance += amount;
 
+                System.out.printf("Transferred $%s to %s%n", amount, toAccount.name);
+            } else {
+                toAccount.balance += this.balance;
+                Double remainingAmount = amount - this.balance;
+                OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
+                OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
+                this.addOwe(toAccount, toOweRecord);
+                toAccount.addOwe(this, fromOweRecord);
+
+                System.out.printf("Transferred $%s to %s%n", this.balance, toAccount.name);
+
+                this.balance = 0.0d;
+            }
+        }
         System.out.printf("Your balance is $%s%n", this.balance);
         if (!this.owingMappings.isEmpty()) {
             for (Map.Entry<BankAccount, OweRecord> entry : owingMappings.entrySet()) {
