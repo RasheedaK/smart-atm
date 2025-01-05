@@ -22,7 +22,7 @@ public class Bank {
             case "deposit" -> deposit(inputStrings);
             case "withdraw" -> withdraw(inputStrings);
             case "transfer" -> transfer(inputStrings);
-            case "logout" -> "logout";
+            case "logout" -> logout();
             default -> "Invalid command";
         };
     }
@@ -44,6 +44,12 @@ public class Bank {
         Double amount = Double.valueOf(inputStrings[2]);
         new Transfer(currentLoggedInAccount, findAccountByName(toAccount), amount).execute();
         return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
+    }
+
+    private String logout() {
+        String loggedInAccountName = currentLoggedInAccount.getName();
+        currentLoggedInAccount = null;
+        return String.format("Goodbye, %s!", loggedInAccountName);
     }
 
     private String createAccount(String accountName) {

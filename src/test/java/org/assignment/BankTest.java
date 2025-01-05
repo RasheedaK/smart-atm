@@ -56,6 +56,7 @@ class BankTest {
     void shouldProcessTransferCommand() {
         bank.process("login Bob");
         bank.process("deposit 50");
+        bank.process("logout");
 
         bank.process("login Alice");
         bank.process("deposit 100");
@@ -68,7 +69,8 @@ class BankTest {
 
     @Test
     void shouldProcessLogoutCommand() {
-        String command = "logout";
-        assertEquals("logout", bank.process(command));
+        bank.process("login Alice");
+
+        assertEquals("Goodbye, Alice!", bank.process("logout"));
     }
 }
