@@ -14,6 +14,10 @@ public class Withdraw implements ATMCommand {
 
     @Override
     public void execute() {
-        this.bankAccount.withdraw(amount);
+        if (this.bankAccount.getBalance() >= amount) {
+            this.bankAccount.withdraw(amount);
+        } else {
+            throw new IllegalArgumentException("Account balance is low, hence cannot withdraw given amount");
+        }
     }
 }

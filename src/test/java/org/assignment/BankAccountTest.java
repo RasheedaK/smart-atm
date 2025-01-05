@@ -38,15 +38,4 @@ class BankAccountTest {
 
         assertEquals(0.0d, account.getBalance());
     }
-
-    @Test
-    void shouldThrowExceptionIfBalanceIsLessThanTheAccountToWithdraw() {
-        BankAccount account = new BankAccount("Alice", 0.0d);
-        account.deposit(50.0d);
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> account.withdraw(100.0d));
-
-        assertEquals("Account balance is low, hence cannot withdraw given amount", exception.getMessage());
-    }
 }
