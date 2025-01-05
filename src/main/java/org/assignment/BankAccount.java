@@ -42,6 +42,8 @@ public class BankAccount {
     public void withdraw(Double amount) {
         if (this.balance >= amount) {
             this.balance -= amount;
+        } else {
+            throw new IllegalArgumentException("Account balance is low, hence cannot withdraw given amount");
         }
     }
 }
