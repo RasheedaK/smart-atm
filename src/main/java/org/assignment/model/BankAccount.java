@@ -62,16 +62,31 @@ public class BankAccount {
 
     public void transfer(BankAccount toAccount, Double amount) {
         if (this.balance >= amount) {
-            this.withdraw(amount);
-            toAccount.deposit(amount);
+            this.balance -= amount;
+            toAccount.balance += amount;
+
+            System.out.printf("Transferred $%s to %s%n", amount, toAccount.name);
         } else {
-            toAccount.deposit(amount);
+            toAccount.balance += this.balance;
             Double remainingAmount = amount - this.balance;
             OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
             OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
-
             this.addOwe(toAccount, toOweRecord);
             toAccount.addOwe(this, fromOweRecord);
+
+            System.out.printf("Transferred $%s to %s%n", this.balance, toAccount.name);
+
+            this.balance = 0.0d;
+        }
+
+        System.out.printf("Your balance is $%s%n", this.balance);
+        if (!this.owingMappings.isEmpty()) {
+            for (Map.Entry<BankAccount, OweRecord> entry : owingMappings.entrySet()) {
+                System.out.printf("Owed $%s %s %s%n",
+                        entry.getValue().amount(),
+                        entry.getValue().type().name().toLowerCase(),
+                        entry.getKey().getName());
+            }
         }
     }
 
