@@ -43,7 +43,8 @@ public class ATMClient {
         } else {
             currentLoggedInAccount = bank.findAccountByName(accountName);
         }
-        return String.format("Hello, %s!", currentLoggedInAccount.getName());
+        return String.format("Hello, %s!%nYour balance is $%s",
+                currentLoggedInAccount.getName(), currentLoggedInAccount.getBalance());
     }
 
     private String logout() {

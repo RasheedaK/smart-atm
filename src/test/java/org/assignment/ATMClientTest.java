@@ -22,7 +22,7 @@ class ATMClientTest {
     @Test
     void shouldProcessLoginCommand() {
         String command = "login Alice";
-        assertEquals("Hello, Alice!", atmClient.process(command));
+        assertEquals("Hello, Alice!\nYour balance is $0.0", atmClient.process(command));
     }
 
     @Test
