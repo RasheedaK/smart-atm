@@ -1,5 +1,6 @@
 package org.assignment;
 
+import org.assignment.model.BankAccount;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

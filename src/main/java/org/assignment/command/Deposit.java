@@ -1,6 +1,6 @@
 package org.assignment.command;
 
-import org.assignment.BankAccount;
+import org.assignment.model.BankAccount;
 
 public class Deposit implements Command {
 

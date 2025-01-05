@@ -1,4 +1,4 @@
-package org.assignment;
+package org.assignment.model;
 
 public enum OweRecordType {
     FROM,

@@ -4,6 +4,7 @@ import org.assignment.command.Command;
 import org.assignment.command.Deposit;
 import org.assignment.command.Transfer;
 import org.assignment.command.Withdraw;
+import org.assignment.model.BankAccount;
 
 import java.util.ArrayList;
 import java.util.List;

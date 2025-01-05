@@ -1,7 +1,7 @@
 package org.assignment.command;
 
-import org.assignment.BankAccount;
-import org.assignment.OweRecord;
+import org.assignment.model.BankAccount;
+import org.assignment.model.OweRecord;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

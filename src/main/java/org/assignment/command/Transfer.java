@@ -1,10 +1,10 @@
 package org.assignment.command;
 
-import org.assignment.BankAccount;
-import org.assignment.OweRecord;
+import org.assignment.model.BankAccount;
+import org.assignment.model.OweRecord;
 
-import static org.assignment.OweRecordType.FROM;
-import static org.assignment.OweRecordType.TO;
+import static org.assignment.model.OweRecordType.FROM;
+import static org.assignment.model.OweRecordType.TO;
 
 public class Transfer implements Command {
 
