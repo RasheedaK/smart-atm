@@ -1,10 +1,12 @@
 package org.assignment;
 
 import org.assignment.command.Deposit;
+import org.assignment.command.Transfer;
 import org.assignment.command.Withdraw;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Bank {
 
@@ -19,9 +21,7 @@ public class Bank {
             case "login" -> createAccount(inputStrings[1]);
             case "deposit" -> deposit(inputStrings);
             case "withdraw" -> withdraw(inputStrings);
-            case "transfer" -> {
-                yield "transfer";
-            }
+            case "transfer" -> transfer(inputStrings);
             case "logout" -> "logout";
             default -> "Invalid command";
         };
@@ -39,14 +39,34 @@ public class Bank {
         return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
     }
 
+    private String transfer(String[] inputStrings) {
+        String toAccount = inputStrings[1];
+        Double amount = Double.valueOf(inputStrings[2]);
+        new Transfer(currentLoggedInAccount, findAccountByName(toAccount), amount).execute();
+        return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
+    }
+
     private String createAccount(String accountName) {
         BankAccount accountToCreate = new BankAccount(accountName, 0.0d);
         if (!this.bankAccounts.contains(accountToCreate)) {
             currentLoggedInAccount = accountToCreate;
             this.bankAccounts.add(accountToCreate);
+        } else {
+            currentLoggedInAccount = findAccountByName(accountName);
         }
-
         return String.format("Hello, %s!", currentLoggedInAccount.getName());
+    }
+
+    public BankAccount findAccountByName(String accountName) {
+        Optional<BankAccount> bankAccountOptional = this.bankAccounts
+                .stream()
+                .filter(bankAccount -> bankAccount.getName().equals(accountName))
+                .findFirst();
+
+        if (bankAccountOptional.isEmpty()) {
+            //throw an exception
+        }
+        return bankAccountOptional.get();
     }
 
     // This method is for test

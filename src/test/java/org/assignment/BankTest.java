@@ -1,10 +1,9 @@
 package org.assignment;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BankTest {
 
@@ -55,8 +54,16 @@ class BankTest {
 
     @Test
     void shouldProcessTransferCommand() {
-        String command = "transfer Alice 50";
-        assertEquals("transfer", bank.process(command));
+        bank.process("login Bob");
+        bank.process("deposit 50");
+
+        bank.process("login Alice");
+        bank.process("deposit 100");
+
+        bank.process("transfer Bob 100");
+
+        BankAccount bobAccount = bank.findAccountByName("Bob");
+        assertEquals(150.0d, bobAccount.getBalance());
     }
 
     @Test

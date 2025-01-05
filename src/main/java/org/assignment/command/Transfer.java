@@ -21,8 +21,10 @@ public class Transfer implements ATMCommand {
     @Override
     public void execute() {
         if (this.fromAccount.getBalance() >= this.amount) {
+            this.fromAccount.withdraw(amount);
             this.toAccount.deposit(this.amount);
         } else {
+            this.toAccount.deposit(this.amount);
             Double remainingAmount = this.amount - this.fromAccount.getBalance();
             OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
             OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
