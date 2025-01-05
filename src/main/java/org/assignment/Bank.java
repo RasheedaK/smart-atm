@@ -17,7 +17,7 @@ public class Bank {
         return switch (command) {
             case "login" -> createAccount(inputStrings[1]);
             case "deposit" -> deposit(inputStrings);
-            case "withdraw" -> new Withdraw().execute();
+            case "withdraw" -> withdraw(inputStrings);
             case "transfer" -> new Transfer().execute();
             case "logout" -> "logout";
             default -> "Invalid command";
@@ -27,6 +27,12 @@ public class Bank {
     private String deposit(String[] inputStrings) {
         Double amount = Double.valueOf(inputStrings[1]);
         new Deposit(currentLoggedInAccount, amount).execute();
+        return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
+    }
+
+    private String withdraw(String[] inputStrings) {
+        Double amount = Double.valueOf(inputStrings[1]);
+        new Withdraw(currentLoggedInAccount, amount).execute();
         return String.format("Your balance is $%s", currentLoggedInAccount.getBalance());
     }
 

@@ -38,4 +38,10 @@ public class BankAccount {
     public void deposit(Double amount) {
         this.balance += amount;
     }
+
+    public void withdraw(Double amount) {
+        if (this.balance >= amount) {
+            this.balance -= amount;
+        }
+    }
 }

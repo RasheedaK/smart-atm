@@ -39,9 +39,11 @@ class BankTest {
     @Test
     void shouldProcessWithdrawCommand() {
         Bank bank = new Bank();
+        bank.process("login Alice");
+        bank.process("deposit 100");
 
         String command = "withdraw 50";
-        assertEquals("withdraw", bank.process(command));
+        assertEquals("Your balance is $50.0", bank.process(command));
     }
 
     @Test
