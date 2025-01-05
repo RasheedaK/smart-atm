@@ -11,6 +11,6 @@ public class Logout implements Command {
 
     @Override
     public void execute() {
-        System.out.printf("Goodbye, %s!%n", this.bankAccount.getName());
+        this.bankAccount.logout();
     }
 }

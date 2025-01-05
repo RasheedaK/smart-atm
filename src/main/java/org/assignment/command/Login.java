@@ -12,7 +12,7 @@ public class Login implements Command {
 
     @Override
     public void execute() {
-        System.out.printf("Hello, %s!%nYour balance is $%s%n", this.bankAccount.getName(), this.bankAccount.getBalance());
+        this.bankAccount.login();
     }
 }
 

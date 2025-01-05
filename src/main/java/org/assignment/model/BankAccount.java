@@ -42,12 +42,22 @@ public class BankAccount {
         return name != null ? name.hashCode() : 0;
     }
 
+    public void login() {
+        System.out.printf("Hello, %s!%nYour balance is $%s%n", this.name, this.balance);
+    }
+
     public void deposit(Double amount) {
         this.balance += amount;
+        System.out.printf("Your balance is $%s%n", this.balance);
     }
 
     public void withdraw(Double amount) {
         this.balance -= amount;
+        System.out.printf("Your balance is $%s%n", this.balance);
+    }
+
+    public void logout() {
+        System.out.printf("Goodbye, %s!%n", this.name);
     }
 
     public void transfer(BankAccount toAccount, Double amount) {

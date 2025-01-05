@@ -16,7 +16,6 @@ public class Withdraw implements Command {
     public void execute() {
         if (this.bankAccount.getBalance() >= amount) {
             this.bankAccount.withdraw(amount);
-            System.out.printf("Your balance is $%s%n", this.bankAccount.getBalance());
         } else {
             throw new IllegalArgumentException("Account balance is low, hence cannot withdraw given amount");
         }
