@@ -17,5 +17,8 @@ public class Transfer implements Command {
     @Override
     public void execute() {
         this.fromAccount.transfer(toAccount, amount);
+
+        System.out.printf("Transferred $%s to $%s%n", this.amount, this.toAccount.getName());
+        System.out.printf("Your balance is $%s%n", this.fromAccount.getBalance());
     }
 }
