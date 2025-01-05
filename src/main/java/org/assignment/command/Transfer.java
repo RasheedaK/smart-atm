@@ -1,10 +1,6 @@
 package org.assignment.command;
 
 import org.assignment.model.BankAccount;
-import org.assignment.model.OweRecord;
-
-import static org.assignment.model.OweRecordType.FROM;
-import static org.assignment.model.OweRecordType.TO;
 
 public class Transfer implements Command {
 
@@ -20,17 +16,6 @@ public class Transfer implements Command {
 
     @Override
     public void execute() {
-        if (this.fromAccount.getBalance() >= this.amount) {
-            this.fromAccount.withdraw(amount);
-            this.toAccount.deposit(this.amount);
-        } else {
-            this.toAccount.deposit(this.amount);
-            Double remainingAmount = this.amount - this.fromAccount.getBalance();
-            OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
-            OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
-
-            this.fromAccount.addOwe(toAccount.getName(), toOweRecord);
-            this.toAccount.addOwe(fromAccount.getName(), fromOweRecord);
-        }
+        this.fromAccount.transfer(toAccount, amount);
     }
 }

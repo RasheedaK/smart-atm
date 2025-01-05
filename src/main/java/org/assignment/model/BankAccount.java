@@ -3,6 +3,9 @@ package org.assignment.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.assignment.model.OweRecordType.FROM;
+import static org.assignment.model.OweRecordType.TO;
+
 public class BankAccount {
 
     private final String name;
@@ -31,7 +34,22 @@ public class BankAccount {
         this.balance -= amount;
     }
 
-    public void addOwe(String accountName, OweRecord oweRecord) {
+    public void transfer(BankAccount toAccount, Double amount) {
+        if (this.balance >= amount) {
+            this.withdraw(amount);
+            toAccount.deposit(amount);
+        } else {
+            toAccount.deposit(amount);
+            Double remainingAmount = amount - this.balance;
+            OweRecord toOweRecord = new OweRecord(TO, remainingAmount);
+            OweRecord fromOweRecord = new OweRecord(FROM, remainingAmount);
+
+            this.addOwe(toAccount.getName(), toOweRecord);
+            toAccount.addOwe(this.name, fromOweRecord);
+        }
+    }
+
+    private void addOwe(String accountName, OweRecord oweRecord) {
         this.owingMappings.put(accountName, oweRecord);
     }
 
