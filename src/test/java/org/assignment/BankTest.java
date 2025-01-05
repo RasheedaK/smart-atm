@@ -38,6 +38,8 @@ class BankTest {
 
         String command = "deposit 100";
         assertEquals("Your balance is $100.0", bank.process(command));
+
+        bank.process("withdraw 100");
     }
 
     @Test
@@ -46,7 +48,9 @@ class BankTest {
         bank.process("deposit 100");
 
         String command = "withdraw 50";
-        assertEquals("Your balance is $150.0", bank.process(command));
+        assertEquals("Your balance is $50.0", bank.process(command));
+
+        bank.process("withdraw 50");
     }
 
     @Test
