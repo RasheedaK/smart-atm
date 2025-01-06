@@ -21,7 +21,7 @@ public class Main {
 
             if ("exit".equalsIgnoreCase(input)) {
                 System.out.println("Exiting program.");
-                break;  // Exit the loop and end the program
+                break;
             }
 
             atmClient.process(input);
